@@ -1,0 +1,24 @@
+diff --git a/rxlocal-api/main.py b/rxlocal-api/main.py
+--- a/rxlocal-api/main.py
++++ b/rxlocal-api/main.py
+@@ -226,0 +227,7 @@ def run_reminders():
++    # A pharmacist-owned case must not receive another automated check-in.
++    # Keep it visible in the sweep results so the skip is auditable.
++    open_escalation_patient_ids = {
++        item.get("patient_id") for item in data.get("escalations", [])
++        if item.get("status") in {"open", "acknowledged"}
++    }
++
+@@ -246,6 +253,12 @@ def run_reminders():
+         patient = patients_by_id.get(rx["patient_id"])
+         if not patient:
+             continue
++        if rx["patient_id"] in open_escalation_patient_ids:
++            results.append({
++                "patient_id": rx["patient_id"],
++                "skipped": "open pharmacist escalation",
++            })
++            continue
+         chat_id = _usable_chat_id(patient.get("telegram_chat_id"))
+         if not chat_id:
+             results.append({"patient_id": rx["patient_id"], "skipped": "no telegram chat id set"})

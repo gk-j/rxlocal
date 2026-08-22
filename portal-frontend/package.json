@@ -1,0 +1,19 @@
+{
+  "name": "rxlocal-pharmacist-portal",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 8081 --strictPort",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.2.0",
+    "vite": "8.1.5",
+    "typescript": "^5.8.3",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "lucide-react": "^0.575.0"
+  },
+  "devDependencies": {}
+}

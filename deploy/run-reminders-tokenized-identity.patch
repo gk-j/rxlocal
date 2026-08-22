@@ -1,0 +1,17 @@
+--- main.py
++++ main.py
+@@ -221,9 +221,10 @@
+              "--message",
+              f"[SYSTEM: new proactive outreach, unrelated to anything earlier in this "
+              f"chat] The scheduler has determined patient {rx['patient_id']}'s "
+              f"prescription is now due for an adherence check-in. Begin the RxLocal "
+-             f"check-in flow now: call get_patient_meds, then your first and only "
+-             f"message so far should ask for date of birth, nothing else. Do not "
+-             f"assume any outcome - wait for the patient's actual reply.",
++             f"check-in flow now: call start_checkin with the scheduler-provided "
++             f"patient id. Your first and only patient-facing message should ask "
++             f"for date of birth, nothing else. Pass only the patient's later DOB "
++             f"answer to verify_identity. Do not assume any outcome.",
+              "--deliver", "--reply-channel", "telegram", "--reply-to", chat_id,
+              "--timeout", "240", "--json"],
+             capture_output=True, text=True, timeout=260,
